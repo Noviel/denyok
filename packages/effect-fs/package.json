@@ -1,6 +1,6 @@
 {
   "name": "@denyok/effect-fs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Denyok Effect for File System",
   "repository": {
     "type": "git",
