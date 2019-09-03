@@ -1,6 +1,7 @@
+import { resolve } from './resolve';
+
 const version = () => require("../package").version;
 
-const { resolve } = require('./resolve.ts');
 
 const run = (args: string[]) => {
   console.log(`Denyok cli-${version()} is running`, args);

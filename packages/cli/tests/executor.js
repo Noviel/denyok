@@ -1,0 +1,1 @@
+require('../pkg/dist-node/index.bin.js');
