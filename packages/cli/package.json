@@ -37,6 +37,10 @@
     "@pika/plugin-ts-standard-pkg": "^0.6.0",
     "@pika/types": "^0.6.0",
     "@types/node": "^12.7.3",
+    "@types/yargs": "^13.0.2",
     "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "yargs": "^14.0.0"
   }
 }

@@ -4,6 +4,8 @@ const version = () => require("../package").version;
 
 
 const run = (args: string[]) => {
+  const yargs = require('yargs/yargs')(args.slice(2));
+
   console.log(`Denyok cli-${version()} is running`, args);
   console.log("cwd", process.cwd());
 
@@ -14,7 +16,7 @@ const run = (args: string[]) => {
 
     console.log(description(), version());
 
-    main(args);
+    main(yargs.argv);
   } catch (e) {
     console.error("oops", e);
   }
