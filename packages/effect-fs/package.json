@@ -8,6 +8,7 @@
   },
   "author": "Alexander \"snov\" Semenchenko",
   "main": "pkg/dist-node/index.js",
+  "types": "pkg/dist-types/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
