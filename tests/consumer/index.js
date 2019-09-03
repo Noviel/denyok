@@ -1,3 +1,3 @@
 const { version } = require('@denyok/core');
 
-console.log('@snov/core version: ', version());
+console.log('@denyok/core version: ', version());
