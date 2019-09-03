@@ -2,3 +2,4 @@ node_modules
 packages/*/pkg
 yarn-error.log
 lerna-debug.log
+/generated-*
