@@ -16,7 +16,8 @@
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
     "lerna": "^3.16.4",
-    "lerna-wizard": "^1.1.1"
+    "lerna-wizard": "^1.1.1",
+    "typescript": "^3.6.2"
   },
   "scripts": {
     "vrsn": "lerna version",
