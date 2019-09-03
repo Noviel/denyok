@@ -1,4 +1,4 @@
-const version = () => require("./version").version;
+const version = () => require("../package").version;
 
 const getProgram = (query: string) => require(query);
 
