@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import { createFile } from "@denyok/effect-fs";
 
 export const version = () => require("../package").version as string;
@@ -25,12 +26,45 @@ interface NewProjectOptions {
   license: string;
 }
 
-export const main = (args: Partial<NewProjectOptions>) => {
+interface RunOptions {
+  rootPath: string;
+}
+
+const mapOptionsToPackageJsonLike = (options: NewProjectOptions) => {
+  return {
+    name: "unknown",
+    description: options.description,
+  };
+};
+
+export const main = async (args: NewProjectOptions & RunOptions) => {
   console.log(`Creating new project`);
   console.log(`Args:\n`, args);
 
+  const packageJsonContent = mapOptionsToPackageJsonLike(args);
+
+  const rootPath = args.rootPath || '';
+
+  if (rootPath) {
+    await fs.mkdirSync(rootPath);
+  }
+
   console.log(`1. bootstrap folder structure`, args.description);
-  console.log(`Creating file...`, typeof createFile);
+  console.log(
+    `Creating file...`,
+    createFile(
+      `${rootPath}/package.json`,
+      JSON.stringify(packageJsonContent, undefined, 2)
+    )
+  );
+
+  console.log(
+    `Creating denyok.json file...`,
+    createFile(
+      `${rootPath}/denoyk.json`,
+      JSON.stringify(args, undefined, 2)
+    )
+  );
 
   return args;
 };
