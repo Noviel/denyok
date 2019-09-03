@@ -1,0 +1,25 @@
+{
+  "name": "denyok-root",
+  "version": "0.1.0",
+  "description": "Every day made easy: tools and utilities for humans",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noviel/denyok.git"
+  },
+  "homepage": "https://github.com/noviel/denyok",
+  "author": "Alexander \"snov\" Semenchenko",
+  "devDependencies": {
+    "lerna": "^3.16.4",
+    "lerna-wizard": "^1.1.1"
+  },
+  "scripts": {
+    "vrsn": "lerna version",
+    "bld": "lerna run build",
+    "pblsh": "lerna publish from-package --contents pkg",
+    "rls": "yarn vrsn && yarn bld && yarn pblsh"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true
+}

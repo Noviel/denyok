@@ -1,0 +1,12 @@
+{
+  "name": "consumer",
+  "version": "0.1.0",
+  "description": "Test denyok library usage",
+  "main": "index.js",
+  "author": "Alexander \"Snov\" Semenchenko",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@denyok/core": "^0.1.0"
+  }
+}
