@@ -1,2 +1,3 @@
 node_modules
 packages/*/pkg
+yarn-error.log
