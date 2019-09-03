@@ -1,6 +1,6 @@
 {
   "name": "@denyok/config-project",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Denyok Project Configuration",
   "repository": {
     "type": "git",
