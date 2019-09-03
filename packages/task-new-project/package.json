@@ -1,6 +1,6 @@
 {
   "name": "@denyok/task-new-project",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Denyok Task: bootstrap new project",
   "repository": {
     "type": "git",
@@ -31,9 +31,8 @@
     "@pika/types": "^0.6.0",
     "@types/node": "^12.7.3",
     "typescript": "^3.6.2"
-  }, 
+  },
   "dependencies": {
-    
     "@denyok/effect-fs": "^0.1.0"
   }
 }
