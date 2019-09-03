@@ -1,3 +1,5 @@
+const base = require('../../jest.config');
+
 module.exports = {
-  testPathIgnorePatterns: ['/node_modules/', '<rootDir>/pkg/']
-};
+  ...base
+}

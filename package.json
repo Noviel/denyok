@@ -9,6 +9,12 @@
   "homepage": "https://github.com/noviel/denyok",
   "author": "Alexander \"snov\" Semenchenko",
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.18",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
     "lerna": "^3.16.4",
     "lerna-wizard": "^1.1.1"
   },
@@ -16,7 +22,8 @@
     "vrsn": "lerna version",
     "bld": "lerna run build",
     "pblsh": "lerna publish from-package --contents pkg",
-    "rls": "yarn vrsn && yarn bld && yarn pblsh"
+    "rls": "yarn vrsn && yarn bld && yarn pblsh",
+    "test": "lerna run test"
   },
   "workspaces": [
     "packages/*"
