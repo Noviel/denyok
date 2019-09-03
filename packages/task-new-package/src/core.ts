@@ -25,8 +25,8 @@ const srcCode = (typescript: boolean) =>
     typescript ? " as string" : ""
   };\n`;
 
-const typescriptConfigContent = () => `{
-  "extends": "../../tsconfig.json",
+const typescriptConfigContent = (level: number = 2) => `{
+  "extends": "${"../".repeat(level) || "./"}tsconfig.json",
   "include": ["src"],
   "exclude": ["node_modules"]
 }\n`;
@@ -38,6 +38,11 @@ export const main = async (args: Options) => {
   const { packagesPath } = args;
   const thisPackagePath = `${packagesPath}/${args.name}`;
   const thisPackageSrcPath = `${thisPackagePath}/src`;
+
+  const packagesPathToLevel = (packagesPath: string) =>
+    packagesPath === "" || packagesPath === "." || packagesPath === "./"
+      ? 1
+      : (packagesPath.match(/[^.]\//g) || []).length + 2;
 
   if (packagesPath) {
     if (!fs.existsSync(thisPackagePath)) {
@@ -54,6 +59,9 @@ export const main = async (args: Options) => {
     srcCode(args.typescript)
   );
   if (args.typescript) {
-    createFile(`${thisPackagePath}/typescript.json`, typescriptConfigContent());
+    createFile(
+      `${thisPackagePath}/typescript.json`,
+      typescriptConfigContent(packagesPathToLevel(packagesPath))
+    );
   }
 };
