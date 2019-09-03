@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from 'path';
 
+import { projectConfig } from '@denyok/config-project';
 import { createFile } from "@denyok/effect-fs";
 
 interface ChildPackageOptions {
@@ -32,24 +33,11 @@ const typescriptConfigContent = (level: number = 2) => `{
   "exclude": ["node_modules"]
 }\n`;
 
-const globalProjectConfig = async () => {
-  let cfg = {
-    packagesPaths: ['packages'],
-    packagesNamespace: '@denyok'
-  }
-
-  try {
-     cfg = { ...cfg, ...require(path.resolve(process.cwd(), 'denyok.json')) };
-  } catch {  }
-
-  return cfg;
-}
-
 export const main = async (args: Options) => {
   console.log(`This is side effect of a task`);
   console.log(`Got args:\n`, args);
 
-  const config = await globalProjectConfig();
+  const config = await projectConfig();
 
   const packagesPath = args.packagesPath || config.packagesPaths[0];
   const thisPackagePath = `${packagesPath}/${args.name}`;
