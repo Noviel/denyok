@@ -1,14 +1,15 @@
 const version = () => require("../package").version;
 
-const getProgram = (query: string) => require(query);
+const { resolve } = require('./resolve');
 
 const run = (args: string[]) => {
   console.log(`Denyok cli-${version()} is running`, args);
   console.log("cwd", process.cwd());
 
-  const programToRunQuery = args[2];
+  let programToRunQuery = args[2];
+
   try {
-    const { version, description, main } = getProgram(programToRunQuery);
+    const { version, description, main } = resolve(programToRunQuery);
 
     console.log(description(), version());
 
