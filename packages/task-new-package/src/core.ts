@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import * as path from 'path';
 
 import { createFile } from "@denyok/effect-fs";
 
@@ -32,10 +33,16 @@ const typescriptConfigContent = (level: number = 2) => `{
 }\n`;
 
 const globalProjectConfig = async () => {
-  return {
+  let cfg = {
     packagesPaths: ['packages'],
     packagesNamespace: '@denyok'
   }
+
+  try {
+     cfg = { ...cfg, ...require(path.resolve(process.cwd(), 'denyok.json')) };
+  } catch {  }
+
+  return cfg;
 }
 
 export const main = async (args: Options) => {
