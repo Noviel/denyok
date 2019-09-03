@@ -31,11 +31,20 @@ const typescriptConfigContent = (level: number = 2) => `{
   "exclude": ["node_modules"]
 }\n`;
 
+const globalProjectConfig = async () => {
+  return {
+    packagesPaths: ['packages'],
+    packagesNamespace: '@denyok'
+  }
+}
+
 export const main = async (args: Options) => {
   console.log(`This is side effect of a task`);
   console.log(`Got args:\n`, args);
 
-  const { packagesPath } = args;
+  const config = await globalProjectConfig();
+
+  const packagesPath = args.packagesPath || config.packagesPaths[0];
   const thisPackagePath = `${packagesPath}/${args.name}`;
   const thisPackageSrcPath = `${thisPackagePath}/src`;
 
