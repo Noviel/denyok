@@ -1,7 +1,7 @@
 {
   "name": "@denyok/task-new-package",
   "version": "0.1.4",
-  "description": "Denyok Core",
+  "description": "Denyok Task: add new package to monorepo",
   "repository": {
     "type": "git",
     "url": "https://github.com/noviel/denyok.git"
@@ -31,5 +31,8 @@
     "@pika/types": "^0.6.0",
     "@types/node": "^12.7.3",
     "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "@denyok/effect-fs": "^0.1.2"
   }
 }
