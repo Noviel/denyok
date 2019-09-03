@@ -7,7 +7,7 @@
     "url": "https://github.com/noviel/denyok.git"
   },
   "author": "Alexander \"snov\" Semenchenko",
-  "main": "src/index.ts",
+  "main": "pkg/dist-node/index.js",
   "publishConfig": {
     "access": "public"
   },
