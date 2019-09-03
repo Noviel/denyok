@@ -64,7 +64,7 @@ export const main = async (args: Options) => {
   );
   if (args.typescript) {
     createFile(
-      `${thisPackagePath}/typescript.json`,
+      `${thisPackagePath}/tsconfig.json`,
       typescriptConfigContent(packagesPathToLevel(packagesPath))
     );
   }
