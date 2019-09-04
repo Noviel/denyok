@@ -1,7 +1,7 @@
 import * as fs from "fs";
-import * as path from 'path';
+import * as path from "path";
 
-import { projectConfig } from '@denyok/config-project';
+import { projectConfig } from "@denyok/config-project";
 import { createFile } from "@denyok/effect-fs";
 
 interface ChildPackageOptions {
@@ -27,11 +27,13 @@ const srcCode = (typescript: boolean) =>
     typescript ? " as string" : ""
   };\n`;
 
-const typescriptConfigContent = (level: number = 2) => `{
-  "extends": "${"../".repeat(level) || "./"}tsconfig.json",
-  "include": ["src"],
-  "exclude": ["node_modules"]
-}\n`;
+const jsonToFileContent = (json: object) => JSON.stringify(json, null, 2);
+
+const typescriptConfig = (level: number = 2) => ({
+  extends: `${"../".repeat(level) || "./"}tsconfig.json`,
+  include: ["src"],
+  exclude: ["node_modules"]
+});
 
 export const main = async (args: Options) => {
   console.log(`This is side effect of a task`);
@@ -65,7 +67,7 @@ export const main = async (args: Options) => {
   if (args.typescript) {
     createFile(
       `${thisPackagePath}/tsconfig.json`,
-      typescriptConfigContent(packagesPathToLevel(packagesPath))
+      jsonToFileContent(typescriptConfig(packagesPathToLevel(packagesPath)))
     );
   }
 };
