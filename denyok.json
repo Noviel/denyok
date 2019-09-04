@@ -1,3 +1,5 @@
 {
-  "packagesPaths": ["packages"]
+  "kind": "MonorepoRoot",
+  "packagesRoots": ["packages"],
+  "namespace": "@denyok"
 }
