@@ -1,6 +1,6 @@
 {
   "name": "@denyok/task-new-package",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Denyok Task: add new package to monorepo",
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "@denyok/task-add-linting",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Denyok Effect for File System",
   "repository": {
     "type": "git",
