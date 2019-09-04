@@ -1,27 +1,18 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { projectConfig } from "@denyok/config-project";
+import { getProjectConfig, PackageConfiguration } from "@denyok/config-project";
 import { createFile } from "@denyok/effect-fs";
 
 import { generate } from "./package-json-generator";
 
-interface ChildPackageOptions {
-  namespace: string;
-}
-
-interface RootPackageOptions {}
-
 type BuildTargets = "node" | "web";
 
 interface Options {
-  name: string;
-  namespace: string;
   typescript: boolean;
   targets: BuildTargets[];
   test: boolean;
   globalDevDependencies: string[];
-  packagesPath: string;
 }
 
 const srcCode = (typescript: boolean) =>
@@ -37,39 +28,52 @@ const typescriptConfig = (level: number = 2) => ({
   exclude: ["node_modules"]
 });
 
-export const main = async (args: Options) => {
-  console.log(`This is side effect of a task`);
-  console.log(`Got args:\n`, args);
+export const main = async (args: Options & PackageConfiguration) => {
+  const configFromFile = await getProjectConfig();
+  /* If there is configuration stored in working folder — infer project's properties from it */
+  if (configFromFile) {
+    if (configFromFile.kind === "MonorepoRoot") {
+      console.log(`You are inside monorepo project. Adding package to it.`);
 
-  const config = await projectConfig();
+      const packagesPath = configFromFile.packagesRoots[0];
+      const thisPackagePath = `${packagesPath}/${args.name}`;
+      const thisPackageSrcPath = `${thisPackagePath}/src`;
 
-  const packagesPath = args.packagesPath || config.packagesPaths[0];
-  const thisPackagePath = `${packagesPath}/${args.name}`;
-  const thisPackageSrcPath = `${thisPackagePath}/src`;
+      const packagesPathToLevel = (packagesPath: string) =>
+        packagesPath === "" || packagesPath === "." || packagesPath === "./"
+          ? 1
+          : (packagesPath.match(/[^.]\//g) || []).length + 2;
 
-  const packagesPathToLevel = (packagesPath: string) =>
-    packagesPath === "" || packagesPath === "." || packagesPath === "./"
-      ? 1
-      : (packagesPath.match(/[^.]\//g) || []).length + 2;
+      if (packagesPath) {
+        if (!fs.existsSync(thisPackagePath)) {
+          await fs.mkdirSync(thisPackagePath, { recursive: true });
+        }
+        if (!fs.existsSync(thisPackageSrcPath)) {
+          await fs.mkdirSync(thisPackageSrcPath, { recursive: true });
+        }
+      }
 
-  if (packagesPath) {
-    if (!fs.existsSync(thisPackagePath)) {
-      await fs.mkdirSync(thisPackagePath, { recursive: true });
+      createFile(
+        `${thisPackagePath}/package.json`,
+        jsonToFileContent(generate({ name: args.name }))
+      );
+      createFile(
+        `${thisPackageSrcPath}/index.${args.typescript ? "ts" : "js"}`,
+        srcCode(args.typescript)
+      );
+      if (args.typescript) {
+        createFile(
+          `${thisPackagePath}/tsconfig.json`,
+          jsonToFileContent(typescriptConfig(packagesPathToLevel(packagesPath)))
+        );
+      }
+    } else {
+      console.log(
+        `Found "denyok.json", but it is not "MonorepoRoot".It is unsafe to add package from this context`
+      );
     }
-    if (!fs.existsSync(thisPackageSrcPath)) {
-      await fs.mkdirSync(thisPackageSrcPath, { recursive: true });
-    }
-  }
-
-  createFile(`${thisPackagePath}/package.json`, jsonToFileContent(generate({ name: args.name })));
-  createFile(
-    `${thisPackageSrcPath}/index.${args.typescript ? "ts" : "js"}`,
-    srcCode(args.typescript)
-  );
-  if (args.typescript) {
-    createFile(
-      `${thisPackagePath}/tsconfig.json`,
-      jsonToFileContent(typescriptConfig(packagesPathToLevel(packagesPath)))
-    );
+  } else {
+    console.log(`Create "denyok.json" with configuration.`);
+    /* If there is no persistent config — input arguments is the only source of project's configuration */
   }
 };

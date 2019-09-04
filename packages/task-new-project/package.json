@@ -34,6 +34,7 @@
     "typescript": "^3.6.2"
   },
   "dependencies": {
+    "@denyok/config-project": "^0.1.2",
     "@denyok/effect-fs": "^0.1.5",
     "@denyok/effect-git": "^0.1.0"
   }
