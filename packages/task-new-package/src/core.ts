@@ -61,7 +61,7 @@ export const main = async (args: Options) => {
     }
   }
 
-  createFile(`${thisPackagePath}/package.json`, generate({ name: args.name }));
+  createFile(`${thisPackagePath}/package.json`, jsonToFileContent(generate({ name: args.name })));
   createFile(
     `${thisPackageSrcPath}/index.${args.typescript ? "ts" : "js"}`,
     srcCode(args.typescript)
