@@ -4,6 +4,8 @@ import * as path from "path";
 import { projectConfig } from "@denyok/config-project";
 import { createFile } from "@denyok/effect-fs";
 
+import { generate } from "./package-json-generator";
+
 interface ChildPackageOptions {
   namespace: string;
 }
@@ -59,7 +61,7 @@ export const main = async (args: Options) => {
     }
   }
 
-  createFile(`${thisPackagePath}/package.json`, "lul");
+  createFile(`${thisPackagePath}/package.json`, generate({ name: args.name }));
   createFile(
     `${thisPackageSrcPath}/index.${args.typescript ? "ts" : "js"}`,
     srcCode(args.typescript)
