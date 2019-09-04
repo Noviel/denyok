@@ -1,6 +1,6 @@
 {
   "name": "@denyok/task-new-project",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Denyok Task: bootstrap new project",
   "repository": {
     "type": "git",
