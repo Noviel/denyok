@@ -1,6 +1,6 @@
 {
   "name": "@denyok/task-new-package",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Denyok Task: add new package to monorepo",
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
     "typescript": "^3.6.2"
   },
   "dependencies": {
-    "@denyok/config-project": "^0.1.3",
+    "@denyok/config-project": "^0.1.4",
     "@denyok/effect-fs": "^0.1.5"
   }
 }
