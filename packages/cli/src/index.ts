@@ -9,7 +9,7 @@ const run = (args: string[]) => {
   console.log(`Denyok cli-${version()} is running`, args);
   console.log("cwd", process.cwd());
 
-  let programToRunQuery = args[2];
+  let programToRunQuery = args[2] || `internal:empty`;
 
   try {
     const { version, description, main } = resolve(programToRunQuery);
