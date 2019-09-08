@@ -1,0 +1,5 @@
+
+
+interface Builder {
+  kind: string;
+}

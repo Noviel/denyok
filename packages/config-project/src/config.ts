@@ -1,6 +1,4 @@
-type OfKind<T> = {
-  kind: T;
-};
+import { OfKind } from "./utils/types";
 
 export type PackageKind = "Monorepo" | "MonorepoRoot" | "Standalone";
 
